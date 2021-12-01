@@ -11,16 +11,19 @@ import time
 import multiprocessing
 import tqdm
 import logging
+import random
+import numpy as np
 
 def experiment(options):
 
-    num_sim, regression_frac, qmc, repetition = options
+    num_sim,regression_frac,qmc,repetition,seed = options
     start_time = time.perf_counter()
 
     pa = plant_analysis.MonteCarloAEP(project,
                                     reanal_products = ['era5', 'merra2'],
                                     regression_frac=regression_frac,
-                                    qmc=qmc)
+                                    qmc=qmc,
+                                    seed=seed)
     pa.run(num_sim=num_sim, reanal_subset=['era5', 'merra2'])
 
     total_time = time.perf_counter() - start_time
@@ -55,6 +58,7 @@ qmc = [False, True]
 repetitions = range(30)
 
 experiment_configs = list(itertools.product(num_sim,regression_frac,qmc,repetitions))
+experiment_configs = [x + (random.randint(0,999999),) for x in experiment_configs]
 
 with multiprocessing.Pool(6, initializer=redirect_output) as p:
     results = list(tqdm.tqdm(p.imap_unordered(experiment, experiment_configs), total=len(experiment_configs)))

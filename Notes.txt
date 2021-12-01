@@ -1,0 +1,11 @@
+11/30/2021
+- Created transformations for sobol sequences so they can be applied to all dimensions of the MC sampling
+- I have disabled bootstrapping on line 780
+- And IAV on line 898, which was injecting more variation into the answer
+- Still have a small amount of variability in the answer, which is weird. Since you'd expect QMC method to be deterministic
+    - Looks like sobol has a seed parameter which defines the first point
+- Unfortunately, it looks like the IAV and the bootstrapping contribute the majority of the uncertainty in the mean
+
+GOAL: Using QMC, you can have the same level confidence on the mean and stanadrd deviation AEP values using 128 MC iterations instead of 2048?
+
+- What portion of the uncertainty is explained by bootstrapping vs monte carlo params vs iav distribution?
