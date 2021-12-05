@@ -57,12 +57,12 @@ def redirect_output():
 project = Project_Engie('./OpenOA/examples/data/la_haute_borne')
 project.prepare()
 
-num_sim = [4,8,16,32,64,128,256]
+num_sim = [2,4,8,16,32,64,128,256]
 regression_frac = [1.0]
 qmc = [False, True]
 bootstrap_reg_data = [False]
 iav_normal_correction = [False]
-repetitions = range(30)
+repetitions = range(5)
 
 experiment_configs = list(itertools.product(num_sim,regression_frac,qmc,repetitions,bootstrap_reg_data,iav_normal_correction))
 experiment_configs = [x + (random.randint(0,999999),) for x in experiment_configs]
@@ -72,4 +72,4 @@ with multiprocessing.Pool(6, initializer=redirect_output) as p:
 
 results = list(results)
 df = pd.DataFrame(results)
-df.to_csv("experiment2-num-sim-qmc.csv", index=False)
+df.to_csv("experiment2-convergence.csv", index=False)

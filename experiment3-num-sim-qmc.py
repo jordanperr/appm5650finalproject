@@ -72,4 +72,4 @@ with multiprocessing.Pool(6, initializer=redirect_output) as p:
 
 results = list(results)
 df = pd.DataFrame(results)
-df.to_csv("experiment2-num-sim-qmc.csv", index=False)
+df.to_csv("experiment3-num-sim-qmc.csv", index=False)
