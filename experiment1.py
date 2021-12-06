@@ -57,10 +57,10 @@ def redirect_output():
 project = Project_Engie('./OpenOA/examples/data/la_haute_borne')
 project.prepare()
 
-num_sim = [4,8,16,32,64,128,256]
-regression_frac = [1.0]
+num_sim = [128,256]
+regression_frac = [0.5, 1.0]
 qmc = [False, True]
-bootstrap_reg_data = [False]
+bootstrap_reg_data = [False, True]
 iav_normal_correction = [False]
 repetitions = range(30)
 
